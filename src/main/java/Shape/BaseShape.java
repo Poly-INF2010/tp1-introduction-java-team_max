@@ -114,7 +114,7 @@ public class BaseShape extends Transform implements Cloneable {
      * @return Shallow copy of all coordinates contained by this BaseShape
      */
     public Collection<Point2d> getCoords() {
-        return this.coords;
+        return new ArrayList<Point2d>(coords);
     }
 
     /** TODO
@@ -123,14 +123,16 @@ public class BaseShape extends Transform implements Cloneable {
      */
     public Collection<Point2d> cloneCoords() {
 
-        return null;
+        return cloneCoords(this.coords);
     }
 
     /** TODO
      * @return Maximum X coordinate of the shape
      */
     public Double getMaxX() {
-        double max = 0;
+        //double max = coords.stream().mapToDouble(Point2d::X).max().orElse(-Double.MAX_VALUE);
+        double max = -Double.MAX_VALUE;
+
         for (Point2d coord : coords){
             max = Math.max(max, coord.X());
         }
@@ -141,41 +143,57 @@ public class BaseShape extends Transform implements Cloneable {
      * @return Maximum Y coordinate of the shape
      */
     public Double getMaxY() {
-        return null;
+        double max = -Double.MAX_VALUE;
+
+        for (Point2d coord : coords){
+            max = Math.max(max, coord.Y());
+        }
+        return max;
+
     }
 
     /** TODO
      * @return 2D Point containing the maximum X and Y coordinates of the shape
      */
     public Point2d getMaxCoord() {
-        return null;
+        return new Point2d(getMaxX(), getMaxY());
     }
 
     /** TODO
      * @return Minimum X coordinate of the shape
      */
     public Double getMinX() {
-        return null;
+        double min = Double.MAX_VALUE;
+
+        for (Point2d coord : coords){
+            min = Math.min(min, coord.X());
+        }
+        return min;
     }
 
     /** TODO
      * @return Minimum Y coordinate of the shape
      */
     public Double getMinY() {
-        return null;
-    }
+        double min = Double.MAX_VALUE;
+
+        for (Point2d coord : coords){
+            min = Math.min(min, coord.Y());
+        }
+        return min;    }
 
     /** TODO
      * @return 2D point containing the minimum X and Y coordinate of the shape
      */
     public Point2d getMinCoord() {
-        return null;
+        return new Point2d(getMinX(), getMinY());
     }
 
     /** TODO
      * @return Deep copy of the current shape
      */
     public BaseShape clone() {
-        return null;
+
+        return new BaseShape(cloneCoords(this.coords));
     }
 }
