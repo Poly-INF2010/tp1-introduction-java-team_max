@@ -37,8 +37,7 @@ public class BaseShape extends Transform implements Cloneable {
      * @return Updated BaseShape
      */
     public BaseShape add(Point2d coord) {
-        coords.add(coord.clone());
-
+        this.coords.add(coord.clone());
         return this;
     }
 
@@ -48,8 +47,7 @@ public class BaseShape extends Transform implements Cloneable {
      * @return Updated BaseShape
      */
     public BaseShape add(BaseShape shape) {
-        for (Point2d coord : shape.coords)
-        {
+        for (Point2d coord : shape.coords) {
             add(coord);
         }
         return this;
@@ -75,7 +73,7 @@ public class BaseShape extends Transform implements Cloneable {
      */
     public BaseShape remove(Point2d coord) {
         coords.remove(coord);
-        return null;
+        return this;
     }
 
     /** TODO
@@ -85,7 +83,7 @@ public class BaseShape extends Transform implements Cloneable {
      */
     public BaseShape remove(BaseShape shape) {
         coords.removeAll(shape.coords);
-        return null;
+        return this;
     }
 
     /** TODO
@@ -95,7 +93,7 @@ public class BaseShape extends Transform implements Cloneable {
      */
     public BaseShape removeAll(Collection<Point2d> coords) {
         this.coords.removeAll(coords);
-        return null;
+        return this;
     }
 
     /** TODO
@@ -106,7 +104,7 @@ public class BaseShape extends Transform implements Cloneable {
     public BaseShape replaceAll(Collection<Point2d> newCoords) {
         coords.clear();
         coords.addAll(newCoords);
-        return null;
+        return this;
     }
 
     /** TODO
@@ -114,7 +112,7 @@ public class BaseShape extends Transform implements Cloneable {
      * @return Shallow copy of all coordinates contained by this BaseShape
      */
     public Collection<Point2d> getCoords() {
-        return new ArrayList<Point2d>(coords);
+        return new ArrayList<>(coords);  //deep/shallow copy??? j'ai enleve '<point2d>'
     }
 
     /** TODO
@@ -122,7 +120,6 @@ public class BaseShape extends Transform implements Cloneable {
      * @return Deep copy of all coordinates contained by this BaseShape
      */
     public Collection<Point2d> cloneCoords() {
-
         return cloneCoords(this.coords);
     }
 
@@ -193,7 +190,6 @@ public class BaseShape extends Transform implements Cloneable {
      * @return Deep copy of the current shape
      */
     public BaseShape clone() {
-
         return new BaseShape(cloneCoords(this.coords));
     }
 }
